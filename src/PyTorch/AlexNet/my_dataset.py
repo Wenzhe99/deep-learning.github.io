@@ -5,7 +5,7 @@ from torch.utils.data import DataLoader
 def get_cifar_dataloader(batch_size=32):
     # 定义数据转换
     data_transform = transforms.Compose([
-        # 1. 调整大小 (Resize) - 填空！
+        # 1. 调整大小 (Resize)
         transforms.Resize((227, 227)),
         
         # 2. 转为张量
