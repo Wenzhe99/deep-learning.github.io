@@ -33,7 +33,7 @@ class BasicBlock(nn.Module):
         out = F.relu(self.bn1(self.conv1(x)))
         out = self.bn2(self.conv2(out))
         
-        # 🔥 核心魔法在这里： F(x) + x
+        # 核心魔法在这里： F(x) + x
         out += self.shortcut(x)
         
         out = F.relu(out)

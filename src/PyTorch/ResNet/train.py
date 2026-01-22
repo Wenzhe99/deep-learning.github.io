@@ -4,6 +4,7 @@ import torch
 from tqdm import tqdm
 from model import ResNet18
 from dataset import get_cifar_dataloader
+import os
 
 def train_one_epoch(model, train_loader, optimizer, criterion, device):
     model.train() # 切换到训练模式 (Switch to training mode)
@@ -56,11 +57,11 @@ def evaluate(model, test_loader, device):
 
 if __name__ == '__main__':
     # 超参数 (Hyperparameters)
-    num_epochs = 5
+    num_epochs = 10
     learning_rate = 0.001
-    batch_size = 16
+    batch_size = 32
     
-    # 设备配置 (Device configuration)
+    # 设备配置 (Device configuration)                              
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
     # 获取数据加载器 (Get data loaders)
@@ -77,3 +78,12 @@ if __name__ == '__main__':
         train_one_epoch(model, train_loader, optimizer, criterion, device)
         acc = evaluate(model, test_loader, device)
         print(f'Accuracy on test set: {acc:.2f}%\n')
+
+    # 保存模型 (Save the model)
+    model_path = os.path.join('../../../results', 'resnet18.pth')
+    if not os.path.exists(os.path.dirname(model_path)):
+        os.makedirs(os.path.dirname(model_path), exist_ok=True)
+        print("创建目录 (Created directory): ", os.path.dirname(model_path))
+    torch.save(model.state_dict(), model_path)
+    print(f"模型已保存至 (Model saved to): {model_path}")
+    

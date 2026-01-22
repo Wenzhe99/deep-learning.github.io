@@ -2,7 +2,7 @@ from torchvision import transforms
 from torchvision.datasets import CIFAR10
 from torch.utils.data import DataLoader
 
-def get_cifar_dataloader(batch_size=16):
+def get_cifar_dataloader(batch_size=32):
     # 定义数据转换
     data_transform = transforms.Compose([
         # 1. 调整大小 (Resize) - 填空！
@@ -16,9 +16,9 @@ def get_cifar_dataloader(batch_size=16):
     ])
     
     # 下载并加载数据 (注意这里是 CIFAR10)
-    train_dataset = CIFAR10(root='./data', train=True, transform=data_transform, download=True)
-    test_dataset = CIFAR10(root='./data', train=False, transform=data_transform, download=True)
-    
+    train_dataset = CIFAR10(root='../../../data', train=True, transform=data_transform, download=True)
+    test_dataset = CIFAR10(root='../../../data', train=False, transform=data_transform, download=True)
+
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
     
